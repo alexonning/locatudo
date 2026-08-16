@@ -1,61 +1,73 @@
 {
   "image-slot.js": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "ffd58db33ccba77f4418532eb598043f",
     "semantic_hash": "ffd58db33ccba77f4418532eb598043f"
   },
   "support.js": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "951ae391b8ae72ef12e671c2fad23353",
     "semantic_hash": "951ae391b8ae72ef12e671c2fad23353"
   },
   "LocaTudo.dc.html": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "349335430b8c4b724596aecb7bc5ee36",
     "semantic_hash": "349335430b8c4b724596aecb7bc5ee36"
   },
+  "docs/superpowers/plans/2026-08-16-locatudo-fase-1-catalogo.md": {
+    "mtime": 1786892967.0759618,
+    "seen": 1786893291.398551,
+    "ast_hash": "d9092cd040749209cf58222f8da18b5a",
+    "semantic_hash": "d9092cd040749209cf58222f8da18b5a"
+  },
+  "docs/superpowers/specs/2026-08-16-locatudo-backend-docker-design.md": {
+    "mtime": 1786892314.435459,
+    "seen": 1786893291.398551,
+    "ast_hash": "d89c3420878627054f2aa3c8acf00044",
+    "semantic_hash": "d89c3420878627054f2aa3c8acf00044"
+  },
   "github.md": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "2dc79c6406d8db5ac65f711fbd5aeac6",
     "semantic_hash": "2dc79c6406d8db5ac65f711fbd5aeac6"
   },
   "assets/logo-locatudo.png": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "0c918a3ca5e0446f01ce158bc68f24d5",
     "semantic_hash": "0c918a3ca5e0446f01ce158bc68f24d5"
   },
   "uploads/WhatsApp Image 2026-08-16 at 10.35.09 (1).jpeg": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "2b335b87772d111b5264ebbec30ea635",
     "semantic_hash": "2b335b87772d111b5264ebbec30ea635"
   },
   "uploads/WhatsApp Image 2026-08-16 at 10.35.09.jpeg": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "14eeb24cb32e0df146212d8cdd179237",
     "semantic_hash": "14eeb24cb32e0df146212d8cdd179237"
   },
   "uploads/WhatsApp Image 2026-08-16 at 10.35.10 (1).jpeg": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "856dabd2ffad1fde8cb1177160176daf",
     "semantic_hash": "856dabd2ffad1fde8cb1177160176daf"
   },
   "uploads/WhatsApp Image 2026-08-16 at 10.35.10 (2).jpeg": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "ffce7eccb1c227fa9bd68e6065275505",
     "semantic_hash": "ffce7eccb1c227fa9bd68e6065275505"
   },
   "uploads/WhatsApp Image 2026-08-16 at 10.35.10.jpeg": {
     "mtime": 1786889028.0,
-    "seen": 1786890859.3758247,
+    "seen": 1786893291.398551,
     "ast_hash": "0447563ff428999eb16cdf489a827281",
     "semantic_hash": "0447563ff428999eb16cdf489a827281"
   }

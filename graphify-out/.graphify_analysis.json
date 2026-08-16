@@ -44,6 +44,7 @@
       "support_createcomponentfactory_getdc",
       "support_createcomponentfactory_getdc_dispatcher",
       "support_createexternalmodules_geterror",
+      "support_createexternalmodules_load",
       "support_createhelmetmanager",
       "support_createhelmetmanager_applycanvasbg",
       "support_createhelmetmanager_compile",
@@ -68,28 +69,6 @@
       "support_parsedctext"
     ],
     "2": [
-      "assets_logo_locatudo_png",
-      "github_md",
-      "locatudo_brand",
-      "locatudo_component_imageslot",
-      "locatudo_contact_capanema",
-      "locatudo_contact_realeza",
-      "locatudo_dc_html",
-      "locatudo_fonts_googleapis",
-      "locatudo_imageslot_js",
-      "locatudo_marketplace_concept",
-      "locatudo_screen_detail",
-      "locatudo_screen_home",
-      "locatudo_screen_results",
-      "locatudo_service_area",
-      "locatudo_support_js",
-      "uploads_wimg_andaimes",
-      "uploads_wimg_instagram_profile",
-      "uploads_wimg_logo_splash",
-      "uploads_wimg_mais_obra",
-      "uploads_wimg_pistola_eletrica"
-    ],
-    "3": [
       "support",
       "support_compiletemplate",
       "support_componentdidmount",
@@ -103,33 +82,61 @@
       "support_getreactdom",
       "support_hiderawtemplate",
       "support_hinttomin",
+      "support_importantify",
       "support_placeholder",
       "support_rendervals",
       "support_rootnamefordocument",
       "support_safedecode",
+      "support_scanunquotedurl",
       "support_setstate",
-      "support_shallowequal"
+      "support_shallowequal",
+      "support_stripcomments"
+    ],
+    "3": [
+      "frontend_src_api_catalog",
+      "frontend_src_api_client",
+      "frontend_src_app",
+      "frontend_src_components_category_card",
+      "frontend_src_components_equipment_card",
+      "frontend_src_components_filter_panel",
+      "frontend_src_components_header",
+      "frontend_src_hooks_use_equipment_filters",
+      "frontend_src_pages_home_page",
+      "frontend_src_pages_results_page",
+      "plan_task8",
+      "plan_task9"
     ],
     "4": [
       "support_collectprops",
+      "support_compileattr",
       "support_contentkey",
-      "support_csstoobj",
-      "support_hostpositionstyle",
       "support_isdeckmounttag",
-      "support_kebabtocamel",
-      "support_renderdeckkids",
       "support_walk",
       "support_walkchildren",
       "support_walkcomponent",
       "support_walkdeckchildren",
       "support_walkelement",
+      "support_walkfor",
+      "support_walkif",
       "support_walkximport"
     ],
     "5": [
+      "assets_logo_locatudo_png",
+      "concept_availability_service",
+      "concept_pricing_service",
+      "concept_reservation_lock",
+      "frontend_nginx_conf",
+      "locatudo_dc",
+      "plan_fase1",
+      "plan_task10",
+      "spec_backend_docker",
+      "uploads_instagram_logo_screen",
+      "uploads_instagram_profile"
+    ],
+    "6": [
       "support_cdnscriptfor",
       "support_createexternalmodules",
       "support_createexternalmodules_ensurebabel",
-      "support_createexternalmodules_load",
       "support_createexternalmodules_resolve2",
       "support_createexternalmodules_resolveglobal",
       "support_createexternalmodules_waitforglobal",
@@ -139,37 +146,91 @@
       "support_loadscript",
       "support_resolvedottedpath"
     ],
-    "6": [
-      "support_compileattr",
-      "support_evaldclogic",
-      "support_getreact",
-      "support_walkfor",
-      "support_walkif",
-      "support_walktext",
-      "support_warnunresolved"
-    ],
     "7": [
+      "backend_prisma_schema",
+      "backend_prisma_seed",
+      "backend_src_prisma_prisma_module",
+      "backend_src_prisma_prisma_service",
+      "plan_task2",
+      "plan_task3",
+      "uploads_instagram_andaimes",
+      "uploads_instagram_ferramentas",
+      "uploads_instagram_pistola"
+    ],
+    "8": [
+      "backend_src_cache_cache_constants",
+      "backend_src_cache_cache_module",
+      "backend_src_cache_cache_service",
+      "backend_src_modules_categories_categories_controller",
+      "backend_src_modules_categories_categories_module",
+      "backend_src_modules_categories_categories_service",
+      "concept_cache_versioning",
+      "plan_task4"
+    ],
+    "9": [
+      "backend_src_common_dto_pagination_dto",
+      "backend_src_modules_equipments_equipments_controller",
+      "backend_src_modules_equipments_equipments_module",
+      "backend_src_modules_equipments_equipments_service",
+      "backend_src_warmup_warmup_module",
+      "backend_src_warmup_warmup_service",
+      "plan_task6",
+      "plan_task7"
+    ],
+    "10": [
+      "backend_src_app_module",
+      "backend_src_common_filters_all_exceptions_filter",
+      "backend_src_config_env_validation",
+      "backend_src_health_health_controller",
+      "backend_src_health_health_module",
+      "backend_src_main",
+      "plan_task1"
+    ],
+    "11": [
       "support_findtoplevelequality",
       "support_parenswrapwhole",
       "support_resolve",
-      "support_resolvepath"
+      "support_resolvepath",
+      "support_walktext",
+      "support_warnunresolved"
     ],
-    "8": [
-      "support_importantify",
-      "support_scanunquotedurl",
-      "support_stripcomments"
+    "12": [
+      "backend_src_modules_units_units_controller",
+      "backend_src_modules_units_units_module",
+      "backend_src_modules_units_units_service",
+      "plan_task5"
+    ],
+    "13": [
+      "support_csstoobj",
+      "support_hostpositionstyle",
+      "support_kebabtocamel"
+    ],
+    "14": [
+      "support_evaldclogic",
+      "support_getreact",
+      "support_renderdeckkids"
+    ],
+    "15": [
+      "github_md"
     ]
   },
   "cohesion": {
     "0": 0.1319073083778966,
-    "1": 0.17980295566502463,
-    "2": 0.1368421052631579,
-    "3": 0.1286549707602339,
-    "4": 0.3076923076923077,
-    "5": 0.24242424242424243,
-    "6": 0.38095238095238093,
-    "7": 0.5,
-    "8": 1.0
+    "1": 0.17471264367816092,
+    "2": 0.12121212121212122,
+    "3": 0.30303030303030304,
+    "4": 0.3787878787878788,
+    "5": 0.2,
+    "6": 0.2545454545454545,
+    "7": 0.25,
+    "8": 0.42857142857142855,
+    "9": 0.32142857142857145,
+    "10": 0.47619047619047616,
+    "11": 0.3333333333333333,
+    "12": 0.6666666666666666,
+    "13": 0.6666666666666666,
+    "14": 0.6666666666666666,
+    "15": 1.0
   },
   "gods": [
     {
@@ -193,13 +254,18 @@
       "degree": 12
     },
     {
-      "id": "locatudo_dc_html",
-      "label": "LocaTudo DC HTML Prototype",
+      "id": "plan_fase1",
+      "label": "LocaTudo Fase 1 Cat\u00e1logo Implementation Plan",
+      "degree": 12
+    },
+    {
+      "id": "backend_src_app_module",
+      "label": "AppModule",
       "degree": 10
     },
     {
-      "id": "support_createruntime_updatehtml",
-      "label": "updateHtml()",
+      "id": "support_getreact",
+      "label": "getReact()",
       "degree": 9
     },
     {
@@ -208,113 +274,75 @@
       "degree": 9
     },
     {
-      "id": "support_walkelement",
-      "label": "walkElement()",
-      "degree": 9
-    },
-    {
       "id": "support_walkximport",
       "label": "walkXImport()",
       "degree": 9
     },
     {
-      "id": "support_getreact",
-      "label": "getReact()",
+      "id": "support_walkelement",
+      "label": "walkElement()",
       "degree": 9
     }
   ],
   "surprises": [
     {
-      "source": "LocaTudo DC HTML Prototype",
-      "target": "LocaTudo Constru&CIA Logo",
+      "source": "Instagram Profile \u2013 locatudoconstruecia",
+      "target": "LocaTudo Backend Docker Design Spec",
       "source_files": [
-        "LocaTudo.dc.html",
-        "assets/logo-locatudo.png"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "references",
-      "why": "crosses file types (doc ↔ image); connects across different repos/directories; peripheral node `LocaTudo Constru&CIA Logo` unexpectedly reaches hub `LocaTudo DC HTML Prototype`"
-    },
-    {
-      "source": "LocaTudo Equipment Rental Marketplace",
-      "target": "LocaTudo Constru&CIA Brand",
-      "source_files": [
-        "LocaTudo.dc.html",
-        "assets/logo-locatudo.png"
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.10 (1).jpeg",
+        "docs/superpowers/specs/2026-08-16-locatudo-backend-docker-design.md"
       ],
       "confidence": "INFERRED",
       "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc \u2194 image); connects across different repos/directories; peripheral node `Instagram Profile \u2013 locatudoconstruecia` unexpectedly reaches hub `LocaTudo Backend Docker Design Spec`"
     },
     {
-      "source": "GitHub Sync Notes",
-      "target": "Instagram Post – Pistola Elétrica (Electric Spray Gun Rental)",
+      "source": "Instagram Post \u2013 Pistola El\u00e9trica de Pintura",
+      "target": "Seed Script",
       "source_files": [
-        "github.md",
-        "uploads/WhatsApp Image 2026-08-16 at 10.35.09 (1).jpeg"
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.09 (1).jpeg",
+        "backend/prisma/seed.ts"
       ],
-      "confidence": "EXTRACTED",
+      "confidence": "INFERRED",
       "relation": "references",
-      "why": "crosses file types (doc ↔ image); connects across different repos/directories"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image \u2194 code); connects across different repos/directories; peripheral node `Instagram Post \u2013 Pistola El\u00e9trica de Pintura` unexpectedly reaches hub `Seed Script`"
     },
     {
-      "source": "LocaTudo Equipment Rental Marketplace",
-      "target": "Service Area: Sudoeste do Paraná (Capanema & Realeza)",
+      "source": "Instagram Post \u2013 Alugue Andaimes",
+      "target": "Seed Script",
       "source_files": [
-        "LocaTudo.dc.html",
-        "uploads/WhatsApp Image 2026-08-16 at 10.35.10 (1).jpeg"
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.09.jpeg",
+        "backend/prisma/seed.ts"
       ],
-      "confidence": "EXTRACTED",
+      "confidence": "INFERRED",
       "relation": "references",
-      "why": "crosses file types (doc ↔ image); connects across different repos/directories"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image \u2194 code); connects across different repos/directories; peripheral node `Instagram Post \u2013 Alugue Andaimes` unexpectedly reaches hub `Seed Script`"
     },
     {
-      "source": "GitHub Sync Notes",
-      "target": "LocaTudo DC HTML Prototype",
+      "source": "Instagram Post \u2013 Mais Obra Menos Gasto / Ferramentas",
+      "target": "Seed Script",
       "source_files": [
-        "github.md",
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.10.jpeg",
+        "backend/prisma/seed.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image \u2194 code); connects across different repos/directories; peripheral node `Instagram Post \u2013 Mais Obra Menos Gasto / Ferramentas` unexpectedly reaches hub `Seed Script`"
+    },
+    {
+      "source": "LocaTudo Constru&CIA Logo (PNG)",
+      "target": "LocaTudo DC Prototype HTML",
+      "source_files": [
+        "assets/logo-locatudo.png",
         "LocaTudo.dc.html"
       ],
-      "confidence": "EXTRACTED",
+      "confidence": "INFERRED",
       "relation": "references",
-      "why": "connects across different repos/directories; peripheral node `GitHub Sync Notes` unexpectedly reaches hub `LocaTudo DC HTML Prototype`"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc \u2194 image); connects across different repos/directories"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `createRuntime()` connect `Runtime Boot and Setup` to `Template Compilation Support`, `Script Loading and Resolution`, `Path Resolution Logic`?",
-      "why": "High betweenness centrality (0.041) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `get()` connect `Runtime Boot and Setup` to `Component Tree Walker`, `Script Loading and Resolution`?",
-      "why": "High betweenness centrality (0.029) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 7 inferred relationships involving `createRuntime()` (e.g. with `adoptParsed()` and `dcUpdate()`) actually correct?",
-      "why": "`createRuntime()` has 7 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `LocaTudo Logo Splash Screen`, `support.js Script`, `Google Fonts (Poppins + Plus Jakarta Sans)` to the rest of the system?",
-      "why": "6 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `Image Slot Web Component` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.1319073083778966 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `LocaTudo Project Assets` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.1368421052631579 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `Template Compilation Support` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.1286549707602339 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 57936,
+    "output": 14514
+  }
 }
