@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body{margin:0;background:#F5F5F1;}
+  *{box-sizing:border-box;}
+  ::-webkit-scrollbar{display:none;}
+  @keyframes ltFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes ltPulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+</style>
+</helmet>
+
+<div style="{{ styles.root }}" data-screen-label="{{ screenLabel }}">
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ styles.toast }}">{{ toast }}</div>
+  </sc-if>
+
+  <!-- ===================== HEADER ===================== -->
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <header style="{{ styles.headerMobile }}">
+      <div style="{{ styles.headerMobileRow }}">
+        <div style="{{ styles.logoWrap }}" onClick="{{ goHome }}">
+          <img src="./assets/logo-locatudo.png" alt="LocaTudo Constru&amp;CIA" style="{{ styles.logoImg }}" />
+        </div>
+        <div style="{{ styles.headerIconsRow }}">
+          <button style="{{ styles.iconBtn }}" onClick="{{ toggleFilters }}" aria-label="Buscar">🔍</button>
+          <button style="{{ styles.iconBtn }}" onClick="{{ notifyComingSoon }}" aria-label="Conta">👤</button>
+        </div>
+      </div>
+      <div style="{{ styles.headerMobileSearchRow }}">
+        <input style="{{ styles.searchInputMobile }}" placeholder="Busque por equipamento, categoria ou marca..." value="{{ query }}" onChange="{{ onQueryChange }}" onKeyDown="{{ onSearchKeyDown }}" aria-label="Buscar equipamento" />
+      </div>
+    </header>
+  </sc-if>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  </sc-if>
+
+  <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}">
+    <header style="{{ styles.headerDesktop }}">
+      <div style="{{ styles.logoWrap }}" onClick="{{ goHome }}">
+        <img src="./assets/logo-locatudo.png" alt="LocaTudo Constru&amp;CIA" style="{{ styles.logoImg }}" />
+      </div>
+      <div style="{{ styles.searchWrapDesktop }}">
+        <span style="{{ styles.searchIconDesktop }}">🔍</span>
+        <input style="{{ styles.searchInputDesktop }}" placeholder="Busque por betoneira, gerador, andaime, martelete..." value="{{ query }}" onChange="{{ onQueryChange }}" onKeyDown="{{ onSearchKeyDown }}" aria-label="Buscar equipamento" />
+        <button style="{{ styles.searchBtnDesktop }}" onClick="{{ runSearch }}">Buscar</button>
+      </div>
+      <nav style="{{ styles.navDesktop }}">
+        <a style="{{ styles.navLink }}" onClick="{{ scrollToCategories }}">Categorias</a>
+        <a style="{{ styles.navLink }}" onClick="{{ notifyComingSoon }}">Favoritos</a>
+        <a style="{{ styles.navLink }}" onClick="{{ notifyComingSoon }}">Meus aluguéis</a>
+        <button style="{{ styles.accountBtn }}" onClick="{{ notifyComingSoon }}">Entrar</button>
+      </nav>
+    </header>
+  </sc-if>
+
+  <sc-if value="{{ showFilterSheetMobile }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ styles.searchSheetOverlay }}" onClick="{{ toggleFilters }}">
+      <div style="{{ styles.searchSheet }}" onClick="{{ stopProp }}">
+        <div style="{{ styles.searchSheetTitle }}">Buscar equipamento</div>
+        <input style="{{ styles.searchInputMobile }}" autoFocus="{{ true }}" placeholder="Ex: betoneira, gerador, martelete..." value="{{ query }}" onChange="{{ onQueryChange }}" onKeyDown="{{ onSearchKeyDown }}" />
+        <button style="{{ styles.primaryBtnFull }}" onClick="{{ runSearch }}">Buscar equipamentos</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== HOME ===================== -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <main style="{{ styles.homeMain }}" data-screen-label="Home">
+
+      <section style="{{ styles.hero }}">
+        <div style="{{ styles.heroTag }}">SUDOESTE DO PARANÁ</div>
+        <h1 style="{{ styles.heroTitle }}">Encontre o equipamento certo para sua obra.</h1>
+        <p style="{{ styles.heroSubtitle }}">Alugue máquinas e ferramentas de construção de forma rápida, segura e prática.</p>
+
+        <div style="{{ styles.heroSearchCard }}">
+          <div style="{{ styles.heroSearchLabel }}">O que você precisa para sua obra?</div>
+          <div style="{{ styles.heroSearchRow }}">
+            <input style="{{ styles.heroSearchInput }}" placeholder="Busque por equipamento, categoria ou marca..." value="{{ query }}" onChange="{{ onQueryChange }}" onKeyDown="{{ onSearchKeyDown }}" />
+            <button style="{{ styles.primaryBtn }}" onClick="{{ runSearch }}">Buscar equipamentos</button>
+          </div>
+        </div>
+
+        <div style="{{ styles.heroLocationRow }}">
+          <span style="{{ styles.heroLocationLabel }}">📍 Onde você precisa do equipamento?</span>
+          <div style="{{ styles.cityChips }}">
+            <sc-for list="{{ cities }}" as="c" hint-placeholder-count="3">
+              <button style="{{ c.chipStyle }}" onClick="{{ c.onSelect }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="{{ styles.categoriesSection }}" id="lt-categories">
+        <div style="{{ styles.sectionHeadRow }}">
+          <h2 style="{{ styles.sectionTitle }}">Categorias</h2>
+        </div>
+        <div style="{{ styles.categoriesGrid }}">
+          <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="8">
+            <button style="{{ styles.categoryCard }}" onClick="{{ cat.onSelect }}">
+              <div style="{{ styles.categoryMono }}">{{ cat.mono }}</div>
+              <div style="{{ styles.categoryName }}">{{ cat.name }}</div>
+              <div style="{{ styles.categoryCount }}">{{ cat.countLabel }}</div>
+            </button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="{{ styles.featuredSection }}">
+        <div style="{{ styles.sectionHeadRow }}">
+          <h2 style="{{ styles.sectionTitle }}">Equipamentos mais procurados</h2>
+          <a style="{{ styles.seeAllLink }}" onClick="{{ runSearchAll }}">Ver todos →</a>
+        </div>
+        <div style="{{ styles.equipGrid }}">
+          <sc-for list="{{ featured }}" as="eq" hint-placeholder-count="5">
+            <article style="{{ styles.equipCard }}" onClick="{{ eq.onOpen }}">
+              <div style="{{ styles.equipImgWrap }}">
+                <image-slot id="{{ eq.imgId }}" shape="rounded" radius="16" placeholder="{{ eq.name }}"></image-slot>
+                <button style="{{ eq.heartStyle }}" onClick="{{ eq.onToggleFav }}">{{ eq.heartIcon }}</button>
+                <div style="{{ eq.availBadgeStyle }}">{{ eq.availLabel }}</div>
+              </div>
+              <div style="{{ styles.equipBody }}">
+                <div style="{{ styles.equipNameWrap }}">
+                  <div style="{{ styles.equipName }}">{{ eq.name }}</div>
+                </div>
+                <div style="{{ styles.equipCategory }}">{{ eq.categoryLabel }}</div>
+                <div style="{{ styles.equipSpacer }}"></div>
+                <div style="{{ styles.equipMetaRow }}">
+                  <span style="{{ styles.equipRating }}">★ {{ eq.rating }}</span>
+                  <span style="{{ styles.equipLocation }}">📍 {{ eq.location }}</span>
+                </div>
+                <div style="{{ styles.equipPriceRow }}">
+                  <span style="{{ styles.equipPriceFrom }}">A partir de</span>
+                  <span style="{{ styles.equipPriceValue }}">{{ eq.priceFrom }}</span>
+                </div>
+                <button style="{{ styles.equipCta }}" onClick="{{ eq.onOpen }}">Ver equipamento</button>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="{{ styles.trustSection }}">
+        <div style="{{ styles.trustItem }}"><div style="{{ styles.trustNum }}">1.200+</div><div style="{{ styles.trustLabel }}">equipamentos no catálogo</div></div>
+        <div style="{{ styles.trustItem }}"><div style="{{ styles.trustNum }}">Capanema · Realeza</div><div style="{{ styles.trustLabel }}">atendimento no Sudoeste do PR</div></div>
+        <div style="{{ styles.trustItem }}"><div style="{{ styles.trustNum }}">Entrega na obra</div><div style="{{ styles.trustLabel }}">levamos e buscamos o equipamento</div></div>
+      </section>
+    </main>
+  </sc-if>
+
+  <!-- ===================== RESULTS ===================== -->
+  <sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+    <main style="{{ styles.resultsMain }}" data-screen-label="Busca / Resultados">
+      <div style="{{ styles.breadcrumbRow }}">
+        <a style="{{ styles.breadcrumbLink }}" onClick="{{ goHome }}">Início</a>
+        <span style="{{ styles.breadcrumbSep }}">/</span>
+        <span style="{{ styles.breadcrumbCurrent }}">Resultados</span>
+      </div>
+
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.mobileFilterBarRow }}">
+          <button style="{{ styles.filterToggleBtn }}" onClick="{{ toggleFilterPanel }}">⚙ Filtros</button>
+          <select style="{{ styles.sortSelect }}" value="{{ sortBy }}" onChange="{{ onSortChange }}">
+            <option value="relevancia">Mais relevantes</option>
+            <option value="preco">Menor preço</option>
+            <option value="avaliacao">Maior avaliação</option>
+          </select>
+        </div>
+      </sc-if>
+
+      <div style="{{ styles.resultsLayout }}">
+        <sc-if value="{{ showFilterPanel }}" hint-placeholder-val="{{ true }}">
+          <aside style="{{ styles.filtersPanel }}">
+            <div style="{{ styles.filtersTitleRow }}">
+              <span style="{{ styles.filtersTitle }}">Filtros</span>
+              <a style="{{ styles.filtersClear }}" onClick="{{ clearFilters }}">Limpar</a>
+            </div>
+
+            <div style="{{ styles.filterGroup }}">
+              <div style="{{ styles.filterGroupLabel }}">Categoria</div>
+              <sc-for list="{{ categoryFilterOptions }}" as="cf" hint-placeholder-count="8">
+                <button style="{{ cf.style }}" onClick="{{ cf.onSelect }}">{{ cf.name }}</button>
+              </sc-for>
+            </div>
+
+            <div style="{{ styles.filterGroup }}">
+              <div style="{{ styles.filterGroupLabel }}">Localização</div>
+              <sc-for list="{{ cityFilterOptions }}" as="lf" hint-placeholder-count="3">
+                <button style="{{ lf.style }}" onClick="{{ lf.onSelect }}">{{ lf.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="{{ styles.filterGroup }}">
+              <div style="{{ styles.filterGroupLabel }}">Disponibilidade</div>
+              <label style="{{ styles.checkRow }}"><input type="checkbox" checked="{{ onlyAvailable }}" onChange="{{ toggleOnlyAvailable }}" /> <span>Mostrar apenas disponíveis</span></label>
+            </div>
+
+            <div style="{{ styles.filterGroup }}">
+              <div style="{{ styles.filterGroupLabel }}">Forma de cobrança</div>
+              <sc-for list="{{ billingFilterOptions }}" as="bf" hint-placeholder-count="2">
+                <button style="{{ bf.style }}" onClick="{{ bf.onSelect }}">{{ bf.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="{{ styles.filterGroup }}">
+              <div style="{{ styles.filterGroupLabel }}">Preço máximo por dia: {{ maxPriceLabel }}</div>
+              <input type="range" min="20" max="200" step="10" value="{{ maxPrice }}" onChange="{{ onMaxPriceChange }}" style="{{ styles.rangeInput }}" />
+            </div>
+          </aside>
+        </sc-if>
+
+        <div style="{{ styles.resultsContent }}">
+          <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}">
+            <div style="{{ styles.resultsTopRow }}">
+              <div style="{{ styles.resultsCount }}">{{ resultsCountLabel }}</div>
+              <select style="{{ styles.sortSelect }}" value="{{ sortBy }}" onChange="{{ onSortChange }}">
+                <option value="relevancia">Mais relevantes</option>
+                <option value="preco">Menor preço</option>
+                <option value="avaliacao">Maior avaliação</option>
+              </select>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ styles.resultsCountMobile }}">{{ resultsCountLabel }}</div>
+          </sc-if>
+
+          <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+            <div style="{{ styles.equipGridResults }}">
+              <sc-for list="{{ filtered }}" as="eq" hint-placeholder-count="6">
+                <article style="{{ styles.equipCard }}" onClick="{{ eq.onOpen }}">
+                  <div style="{{ styles.equipImgWrap }}">
+                    <image-slot id="{{ eq.imgId }}" shape="rounded" radius="16" placeholder="{{ eq.name }}"></image-slot>
+                    <button style="{{ eq.heartStyle }}" onClick="{{ eq.onToggleFav }}">{{ eq.heartIcon }}</button>
+                    <div style="{{ eq.availBadgeStyle }}">{{ eq.availLabel }}</div>
+                  </div>
+                  <div style="{{ styles.equipBody }}">
+                    <div style="{{ styles.equipNameWrap }}">
+                      <div style="{{ styles.equipName }}">{{ eq.name }}</div>
+                    </div>
+                    <div style="{{ styles.equipCategory }}">{{ eq.categoryLabel }}</div>
+                    <div style="{{ styles.equipSpacer }}"></div>
+                    <div style="{{ styles.equipMetaRow }}">
+                      <span style="{{ styles.equipRating }}">★ {{ eq.rating }}</span>
+                      <span style="{{ styles.equipLocation }}">📍 {{ eq.location }}</span>
+                    </div>
+                    <div style="{{ styles.equipPriceRow }}">
+                      <span style="{{ styles.equipPriceFrom }}">A partir de</span>
+                      <span style="{{ styles.equipPriceValue }}">{{ eq.priceFrom }}</span>
+                    </div>
+                    <button style="{{ styles.equipCta }}" onClick="{{ eq.onOpen }}">Ver equipamento</button>
+                  </div>
+                </article>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ styles.emptyState }}">
+              <div style="{{ styles.emptyTitle }}">Não encontramos equipamentos para sua busca.</div>
+              <div style="{{ styles.emptySubtitle }}">Tente:</div>
+              <ul style="{{ styles.emptyList }}">
+                <li>Remover ou alterar filtros</li>
+                <li>Buscar por outra categoria</li>
+                <li>Verificar outra cidade</li>
+              </ul>
+              <button style="{{ styles.primaryBtn }}" onClick="{{ clearFilters }}">Limpar filtros</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <!-- ===================== DETAIL ===================== -->
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <main style="{{ styles.detailMain }}" data-screen-label="Detalhes do equipamento">
+      <div style="{{ styles.breadcrumbRow }}">
+        <a style="{{ styles.breadcrumbLink }}" onClick="{{ goHome }}">Início</a>
+        <span style="{{ styles.breadcrumbSep }}">/</span>
+        <a style="{{ styles.breadcrumbLink }}" onClick="{{ backToResults }}">{{ selected.categoryLabel }}</a>
+        <span style="{{ styles.breadcrumbSep }}">/</span>
+        <span style="{{ styles.breadcrumbCurrent }}">{{ selected.name }}</span>
+      </div>
+
+      <div style="{{ styles.detailLayout }}">
+        <div style="{{ styles.detailGallery }}">
+          <div style="{{ styles.detailMainImgWrap }}">
+            <image-slot id="{{ selected.imgId }}" shape="rounded" radius="20" placeholder="{{ selected.name }}"></image-slot>
+          </div>
+          <div style="{{ styles.detailThumbRow }}">
+            <div style="{{ styles.detailThumb }}"><image-slot id="{{ selected.imgId2 }}" shape="rounded" radius="12" placeholder="Foto 2"></image-slot></div>
+            <div style="{{ styles.detailThumb }}"><image-slot id="{{ selected.imgId3 }}" shape="rounded" radius="12" placeholder="Foto 3"></image-slot></div>
+          </div>
+        </div>
+
+        <div style="{{ styles.detailInfo }}">
+          <div style="{{ selected.availBadgeStyle }}">{{ selected.availLabel }}</div>
+          <h1 style="{{ styles.detailTitle }}">{{ selected.name }}</h1>
+          <div style="{{ styles.detailMetaRow }}">
+            <span style="{{ styles.equipRating }}">★ {{ selected.rating }} ({{ selected.ratingCount }})</span>
+            <span style="{{ styles.equipLocation }}">📍 {{ selected.location }}</span>
+          </div>
+          <div style="{{ styles.detailBrandRow }}">{{ selected.categoryLabel }} · {{ selected.brand }} {{ selected.model }}</div>
+
+          <div style="{{ styles.priceModeRow }}">
+            <sc-for list="{{ selected.billingOptions }}" as="bo" hint-placeholder-count="2">
+              <button style="{{ bo.style }}" onClick="{{ bo.onSelect }}">
+                <div style="{{ styles.priceModeValue }}">{{ bo.value }}</div>
+                <div style="{{ styles.priceModeLabel }}">{{ bo.label }}</div>
+              </button>
+            </sc-for>
+          </div>
+
+          <p style="{{ styles.detailDesc }}">{{ selected.description }}</p>
+
+          <div style="{{ styles.specsBlock }}">
+            <div style="{{ styles.specsTitle }}">Especificações</div>
+            <ul style="{{ styles.specsList }}">
+              <sc-for list="{{ selected.specs }}" as="sp" hint-placeholder-count="4">
+                <li style="{{ styles.specItem }}">{{ sp }}</li>
+              </sc-for>
+            </ul>
+          </div>
+
+          <div style="{{ styles.rulesBlock }}">
+            <div style="{{ styles.specsTitle }}">Regras de utilização</div>
+            <ul style="{{ styles.specsList }}">
+              <li style="{{ styles.specItem }}">Documento com foto obrigatório na retirada</li>
+              <li style="{{ styles.specItem }}">Equipamento deve retornar limpo e no estado de entrega</li>
+              <li style="{{ styles.specItem }}">Uso conforme manual e normas de segurança (NR-35 quando aplicável)</li>
+            </ul>
+          </div>
+
+          <div style="{{ styles.availBlock }}">
+            <div style="{{ styles.specsTitle }}">Consultar disponibilidade</div>
+            <div style="{{ styles.availLegendRow }}">
+              <span style="{{ styles.legendItem }}"><span style="{{ styles.dotGreen }}"></span> Disponível</span>
+              <span style="{{ styles.legendItem }}"><span style="{{ styles.dotAmber }}"></span> Parcial</span>
+              <span style="{{ styles.legendItem }}"><span style="{{ styles.dotRed }}"></span> Reservado</span>
+            </div>
+            <div style="{{ styles.dayStrip }}">
+              <sc-for list="{{ days }}" as="d" hint-placeholder-count="14">
+                <button style="{{ d.style }}" onClick="{{ d.onPick }}">
+                  <div style="{{ styles.dayLabelWeek }}">{{ d.weekday }}</div>
+                  <div style="{{ styles.dayLabelNum }}">{{ d.label }}</div>
+                  <div style="{{ d.dotStyle }}"></div>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasRange }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ styles.rangeSummary }}">
+                <span>{{ rangeLabel }}</span>
+                <span style="{{ styles.rangeSummaryPrice }}">{{ rangeTotalLabel }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noRange }}" hint-placeholder-val="{{ true }}">
+              <div style="{{ styles.rangeHint }}">Toque numa data inicial e depois na data final.</div>
+            </sc-if>
+          </div>
+
+          <button style="{{ styles.desktopRentBtn }}" onClick="{{ goRent }}">{{ rentBtnLabel }}</button>
+        </div>
+      </div>
+
+      <div style="{{ styles.stickyRentBar }}">
+        <div style="{{ styles.stickyRentInfo }}">
+          <div style="{{ styles.stickyRentName }}">{{ selected.name }}</div>
+          <div style="{{ styles.stickyRentPrice }}">{{ selected.stickyPriceLabel }}</div>
+        </div>
+        <button style="{{ styles.stickyRentBtn }}" onClick="{{ goRent }}">Alugar</button>
+      </div>
+    </main>
+  </sc-if>
+
+  <!-- ===================== SUMMARY / CHECKOUT ===================== -->
+  <sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+    <main style="{{ styles.summaryMain }}" data-screen-label="Resumo / Checkout">
+
+      <sc-if value="{{ stepIsSummary }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ styles.summaryCard }}" data-screen-label="Resumo do aluguel">
+          <div style="{{ styles.summaryTitle }}">Seu aluguel</div>
+          <div style="{{ styles.summaryEquipRow }}">
+            <div style="{{ styles.summaryEquipImgWrap }}"><image-slot id="{{ selected.imgId }}" shape="rounded" radius="12" placeholder="{{ selected.name }}"></image-slot></div>
+            <div>
+              <div style="{{ styles.summaryEquipName }}">{{ selected.name }}</div>
+              <div style="{{ styles.equipLocation }}">📍 {{ selected.location }}</div>
+            </div>
+          </div>
+          <div style="{{ styles.summaryDivider }}"></div>
+          <div style="{{ styles.summaryPeriodRow }}">
+            <span>Período</span>
+            <strong>{{ rangeLabel }}</strong>
+          </div>
+          <div style="{{ styles.summaryDivider }}"></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Equipamento</span><span>{{ pricing.subtotalLabel }}</span></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Taxa de serviço</span><span>{{ pricing.feeLabel }}</span></div>
+          <div style="{{ styles.summaryTotalRow }}"><span>Total</span><span>{{ pricing.totalLabel }}</span></div>
+          <button style="{{ styles.primaryBtnFull }}" onClick="{{ goCheckoutDados }}">Continuar</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ stepIsDados }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.summaryCard }}" data-screen-label="Checkout - Dados">
+          <div style="{{ styles.checkoutStepLabel }}">Etapa 1 de 2 · Seus dados</div>
+          <div style="{{ styles.summaryTitle }}">Dados e entrega</div>
+          <div style="{{ styles.formGrid }}">
+            <label style="{{ styles.formLabel }}">Nome completo
+              <input style="{{ styles.formInput }}" value="{{ form.nome }}" onChange="{{ onFormChange_nome }}" placeholder="Seu nome" />
+            </label>
+            <label style="{{ styles.formLabel }}">CPF/CNPJ
+              <input style="{{ styles.formInput }}" value="{{ form.documento }}" onChange="{{ onFormChange_documento }}" placeholder="000.000.000-00" />
+            </label>
+            <label style="{{ styles.formLabel }}">Telefone
+              <input style="{{ styles.formInput }}" value="{{ form.telefone }}" onChange="{{ onFormChange_telefone }}" placeholder="(46) 99999-9999" />
+            </label>
+            <label style="{{ styles.formLabel }}">E-mail
+              <input style="{{ styles.formInput }}" value="{{ form.email }}" onChange="{{ onFormChange_email }}" placeholder="voce@email.com" />
+            </label>
+            <label style="{{ styles.formLabel }}">CEP
+              <input style="{{ styles.formInput }}" value="{{ form.cep }}" onChange="{{ onFormChange_cep }}" placeholder="85760-000" />
+            </label>
+            <label style="{{ styles.formLabel }}">Cidade
+              <select style="{{ styles.formInput }}" value="{{ form.cidade }}" onChange="{{ onFormChange_cidade }}">
+                <option>Capanema - PR</option>
+                <option>Realeza - PR</option>
+              </select>
+            </label>
+            <label style="{{ styles.formLabelWide }}">Endereço
+              <input style="{{ styles.formInput }}" value="{{ form.endereco }}" onChange="{{ onFormChange_endereco }}" placeholder="Rua, avenida..." />
+            </label>
+            <label style="{{ styles.formLabel }}">Número
+              <input style="{{ styles.formInput }}" value="{{ form.numero }}" onChange="{{ onFormChange_numero }}" placeholder="123" />
+            </label>
+          </div>
+          <div style="{{ styles.checkoutBtnRow }}">
+            <button style="{{ styles.secondaryBtn }}" onClick="{{ backToSummary }}">Voltar</button>
+            <button style="{{ styles.primaryBtn }}" onClick="{{ goCheckoutPagamento }}">Continuar</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ stepIsPagamento }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.summaryCard }}" data-screen-label="Checkout - Pagamento">
+          <div style="{{ styles.checkoutStepLabel }}">Etapa 2 de 2 · Pagamento</div>
+          <div style="{{ styles.summaryTitle }}">Forma de pagamento</div>
+          <div style="{{ styles.paymentOptions }}">
+            <sc-for list="{{ paymentMethods }}" as="pm" hint-placeholder-count="3">
+              <button style="{{ pm.style }}" onClick="{{ pm.onSelect }}">
+                <span style="{{ styles.paymentIcon }}">{{ pm.icon }}</span>
+                <span>{{ pm.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="{{ styles.summaryDivider }}"></div>
+          <div style="{{ styles.summaryTotalRow }}"><span>Total a pagar</span><span>{{ pricing.totalLabel }}</span></div>
+          <div style="{{ styles.checkoutBtnRow }}">
+            <button style="{{ styles.secondaryBtn }}" onClick="{{ backToDados }}">Voltar</button>
+            <button style="{{ styles.primaryBtn }}" onClick="{{ confirmOrder }}">Confirmar aluguel</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ stepIsConfirm }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.confirmCard }}" data-screen-label="Confirmação">
+          <div style="{{ styles.confirmIcon }}">✓</div>
+          <div style="{{ styles.confirmTitle }}">Aluguel solicitado com sucesso!</div>
+          <div style="{{ styles.confirmOrderNum }}">Pedido {{ orderNumber }}</div>
+          <div style="{{ styles.summaryDivider }}"></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Equipamento</span><span>{{ selected.name }}</span></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Período</span><span>{{ rangeLabel }}</span></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Valor</span><span>{{ pricing.totalLabel }}</span></div>
+          <div style="{{ styles.summaryLineRow }}"><span>Status</span><span style="{{ styles.statusPending }}">Solicitação enviada</span></div>
+          <button style="{{ styles.primaryBtnFull }}" onClick="{{ goHome }}">Voltar para a home</button>
+        </div>
+      </sc-if>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <nav style="{{ styles.bottomNav }}">
+      <button style="{{ bottomNavHomeStyle }}" onClick="{{ goHome }}"><div>⌂</div><div style="{{ styles.bottomNavLabel }}">Início</div></button>
+      <button style="{{ bottomNavSearchStyle }}" onClick="{{ toggleFilters }}"><div>🔍</div><div style="{{ styles.bottomNavLabel }}">Buscar</div></button>
+      <button style="{{ styles.bottomNavItem }}" onClick="{{ scrollToCategories }}"><div>▤</div><div style="{{ styles.bottomNavLabel }}">Categorias</div></button>
+      <button style="{{ styles.bottomNavItem }}" onClick="{{ notifyComingSoon }}"><div>♡</div><div style="{{ styles.bottomNavLabel }}">Favoritos</div></button>
+    </nav>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    isMobile: (typeof window !== 'undefined' ? window.innerWidth < 860 : false),
+    query: '',
+    activeCategory: null,
+    activeCity: 'Todas',
+    favorites: {},
+    selectedId: null,
+    dateStart: null,
+    dateEnd: null,
+    billingMode: 'dia',
+    checkoutStep: 'summary',
+    orderNumber: null,
+    toast: null,
+    showFilterSheetMobile: false,
+    showFilterPanel: true,
+    onlyAvailable: false,
+    sortBy: 'relevancia',
+    maxPrice: 200,
+    form: { nome: '', telefone: '', documento: '', email: '', cep: '', endereco: '', numero: '', cidade: 'Capanema - PR' },
+    paymentMethod: 'pix'
+  };
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 860, showFilterPanel: window.innerWidth >= 860 });
+    window.addEventListener('resize', this._onResize);
+    if (this.state.isMobile) this.setState({ showFilterPanel: false });
+
+    this.equipments = [
+      { id: 'betoneira', name: 'Betoneira 400L', category: 'concreto', categoryLabel: 'Equipamentos para concreto', brand: 'CSM', model: 'RentalForce 400', rating: '4.9', ratingCount: 128, location: 'Capanema - PR', priceHour: 18, priceDay: 120, hasHour: true, hasDay: true, availability: 'disponivel', imgId: 'img-betoneira', imgId2: 'img-betoneira-2', imgId3: 'img-betoneira-3', description: 'Betoneira de 400 litros para preparo de concreto e argamassa em obras de médio e grande porte. Motor robusto, fácil operação e boa produtividade.', specs: ['Capacidade: 400 litros', 'Motor: 1.5 CV monofásico', 'Rodízio para transporte na obra', 'Peso: 95 kg'] },
+      { id: 'andaime', name: 'Andaime Tubular (módulo 1,5x1m)', category: 'elevacao', categoryLabel: 'Equipamentos de elevação', brand: 'LocaTudo', model: 'Tubular Multidireccional', rating: '4.8', ratingCount: 64, location: 'Realeza - PR', priceHour: null, priceDay: 45, hasHour: false, hasDay: true, availability: 'parcial', imgId: 'img-andaime', imgId2: 'img-andaime-2', imgId3: 'img-andaime-3', description: 'Módulo de andaime tubular multidireccional, ideal para fachadas e obras verticais. Conformidade com NR-35. Alugado por módulo/dia.', specs: ['Altura por módulo: 2m', 'Carga: até 150kg/m²', 'Estrutura em aço galvanizado', 'Inclui base e sapatas niveladoras'] },
+      { id: 'gerador', name: 'Gerador a Diesel 5kVA', category: 'geradores', categoryLabel: 'Geradores', brand: 'Toyama', model: 'TDG5000', rating: '4.7', ratingCount: 41, location: 'Capanema - PR', priceHour: 25, priceDay: 140, hasHour: true, hasDay: true, availability: 'disponivel', imgId: 'img-gerador', imgId2: 'img-gerador-2', imgId3: 'img-gerador-3', description: 'Gerador a diesel 5kVA silenciado, ideal para obras sem acesso à rede elétrica ou como backup de energia.', specs: ['Potência: 5kVA', 'Autonomia: até 10h', 'Partida elétrica', 'Nível de ruído reduzido'] },
+      { id: 'martelete', name: 'Martelete Rompedor SDS-Max', category: 'eletricas', categoryLabel: 'Ferramentas elétricas', brand: 'Bosch', model: 'GSH 5', rating: '4.9', ratingCount: 97, location: 'Realeza - PR', priceHour: 15, priceDay: 90, hasHour: true, hasDay: true, availability: 'disponivel', imgId: 'img-martelete', imgId2: 'img-martelete-2', imgId3: 'img-martelete-3', description: 'Martelete rompedor profissional para demolição de concreto, alvenaria e pisos. Alta força de impacto e vibração reduzida.', specs: ['Energia de impacto: 12,5 J', 'Encaixe: SDS-Max', 'Sistema anti-vibração', 'Inclui 1 ponteiro e 1 cinzel'] },
+      { id: 'pistola', name: 'Pistola Elétrica de Pintura', category: 'eletricas', categoryLabel: 'Ferramentas elétricas', brand: 'Vonder', model: 'PEV 400', rating: '4.8', ratingCount: 53, location: 'Capanema - PR', priceHour: 12, priceDay: 70, hasHour: true, hasDay: true, availability: 'indisponivel', imgId: 'img-pistola', imgId2: 'img-pistola-2', imgId3: 'img-pistola-3', description: 'Pistola elétrica para pintura sem uso de compressor. Bico com regulagem vertical e horizontal, compatível com tintas látex, automotivas e vernizes.', specs: ['Vazão ajustável', 'Bico com regulagem vertical/horizontal', 'Reservatório de 800ml', 'Compatível com tintas à base de água e solvente'] }
+    ];
+
+    this.categories = [
+      { key: 'eletricas', name: 'Ferramentas elétricas', mono: 'FE', count: 48 },
+      { key: 'manuais', name: 'Ferramentas manuais', mono: 'FM', count: 22 },
+      { key: 'maquinas', name: 'Máquinas para construção', mono: 'MC', count: 16 },
+      { key: 'elevacao', name: 'Equipamentos de elevação', mono: 'EL', count: 12 },
+      { key: 'compactacao', name: 'Equipamentos de compactação', mono: 'CP', count: 9 },
+      { key: 'concreto', name: 'Equipamentos para concreto', mono: 'CO', count: 24 },
+      { key: 'geradores', name: 'Geradores', mono: 'GE', count: 14 },
+      { key: 'jardinagem', name: 'Jardinagem', mono: 'JD', count: 11 }
+    ];
+
+    this.days = this.buildDays();
+    this.forceUpdate();
+  }
+
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  buildDays() {
+    const statuses = ['disponivel', 'disponivel', 'disponivel', 'reservado', 'disponivel', 'bloqueado', 'disponivel', 'disponivel', 'parcial', 'disponivel', 'disponivel', 'reservado', 'disponivel', 'disponivel'];
+    const weekdays = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+    const today = new Date(2026, 7, 16);
+    return statuses.map((s, i) => {
+      const d = new Date(today); d.setDate(d.getDate() + i);
+      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      return { iso, label: d.getDate() + '/' + (d.getMonth() + 1), weekday: weekdays[d.getDay()], status: s };
+    });
+  }
+
+  showToast(msg) { this.setState({ toast: msg }); clearTimeout(this._toastT); this._toastT = setTimeout(() => this.setState({ toast: null }), 2200); }
+  notifyComingSoon() { this.showToast('Em breve nesta versão do protótipo'); }
+  stopProp(e) { e.stopPropagation(); }
+
+  goHome() { this.setState({ screen: 'home', showFilterSheetMobile: false }); window.scrollTo(0, 0); }
+  goResults() { this.setState({ screen: 'results' }); window.scrollTo(0, 0); }
+  runSearch() { this.setState({ screen: 'results', showFilterSheetMobile: false }); window.scrollTo(0, 0); }
+  runSearchAll() { this.setState({ screen: 'results', query: '', activeCategory: null }); window.scrollTo(0, 0); }
+  backToResults() { this.setState({ screen: 'results' }); window.scrollTo(0, 0); }
+
+  onQueryChange(e) { this.setState({ query: e.target.value }); }
+  onSearchKeyDown(e) { if (e.key === 'Enter') this.runSearch(); }
+  toggleFilters() { if (this.state.isMobile) this.setState(s => ({ showFilterSheetMobile: !s.showFilterSheetMobile })); else this.runSearch(); }
+  toggleFilterPanel() { this.setState(s => ({ showFilterPanel: !s.showFilterPanel })); }
+
+  selectCategory(key) { this.setState({ activeCategory: key, screen: 'results' }); window.scrollTo(0, 0); }
+  selectCity(label) { this.setState({ activeCity: label }); }
+  scrollToCategories() {
+    if (this.state.screen !== 'home') { this.setState({ screen: 'home' }); setTimeout(() => { const el = document.getElementById('lt-categories'); if (el) el.scrollIntoView(); }, 60); }
+    else { const el = document.getElementById('lt-categories'); if (el) el.scrollIntoView(); }
+  }
+
+  toggleFavorite(id) { this.setState(s => ({ favorites: { ...s.favorites, [id]: !s.favorites[id] } })); this.showToast(this.state.favorites[id] ? 'Removido dos favoritos' : 'Adicionado aos favoritos'); }
+
+  selectEquipment(id) {
+    const eq = this.equipments.find(e => e.id === id);
+    this.setState({ selectedId: id, dateStart: null, dateEnd: null, billingMode: eq && eq.hasDay ? 'dia' : 'hora', screen: 'detail' });
+    window.scrollTo(0, 0);
+  }
+
+  setBillingMode(mode) { this.setState({ billingMode: mode }); }
+
+  pickDate(iso, status) {
+    if (status === 'reservado' || status === 'bloqueado') { this.showToast('Data indisponível'); return; }
+    const { dateStart, dateEnd } = this.state;
+    if (!dateStart || (dateStart && dateEnd)) this.setState({ dateStart: iso, dateEnd: null });
+    else if (iso < dateStart) this.setState({ dateStart: iso });
+    else if (iso === dateStart) this.setState({ dateEnd: iso });
+    else this.setState({ dateEnd: iso });
+  }
+
+  daysBetween(a, b) { if (!a || !b) return 0; const d1 = new Date(a), d2 = new Date(b); return Math.round((d2 - d1) / 86400000) + 1; }
+
+  goRent() {
+    if (!this.state.dateStart || !this.state.dateEnd) { this.showToast('Selecione o período de aluguel'); return; }
+    this.setState({ screen: 'summary', checkoutStep: 'summary' });
+    window.scrollTo(0, 0);
+  }
+
+  goCheckoutDados() { this.setState({ checkoutStep: 'dados' }); window.scrollTo(0, 0); }
+  backToSummary() { this.setState({ checkoutStep: 'summary' }); }
+  goCheckoutPagamento() { this.setState({ checkoutStep: 'pagamento' }); window.scrollTo(0, 0); }
+  backToDados() { this.setState({ checkoutStep: 'dados' }); }
+  setPaymentMethod(m) { this.setState({ paymentMethod: m }); }
+
+  confirmOrder() {
+    const num = 'LT-' + Math.floor(10000 + Math.random() * 89999);
+    this.setState({ orderNumber: num, checkoutStep: 'confirm' });
+    window.scrollTo(0, 0);
+  }
+
+  updateForm(field, val) { this.setState(s => ({ form: { ...s.form, [field]: val } })); }
+
+  clearFilters() { this.setState({ activeCategory: null, activeCity: 'Todas', onlyAvailable: false, maxPrice: 200, query: '' }); }
+  toggleOnlyAvailable() { this.setState(s => ({ onlyAvailable: !s.onlyAvailable })); }
+  onSortChange(e) { this.setState({ sortBy: e.target.value }); }
+  onMaxPriceChange(e) { this.setState({ maxPrice: Number(e.target.value) }); }
+
+  fmtMoney(v) { return 'R$ ' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
+  computePricing(eq, mode, days) {
+    if (!eq || !days) return { subtotal: 0, subtotalLabel: '—', feeLabel: '—', totalLabel: '—' };
+    const fee = 20;
+    let subtotal;
+    if (mode === 'hora' && eq.hasHour) subtotal = eq.priceHour * days * 8;
+    else subtotal = eq.priceDay * days;
+    const total = subtotal + fee;
+    return { subtotal, subtotalLabel: this.fmtMoney(subtotal), feeLabel: this.fmtMoney(fee), totalLabel: this.fmtMoney(total) };
+  }
+
+  renderVals() {
+    const s = this.state;
+    if (!this.equipments) return { isHome: true, isMobile: s.isMobile, notMobile: !s.isMobile, toast: s.toast, showFilterSheetMobile: false, styles: this.buildStyles(s.isMobile) };
+
+    const styles = this.buildStyles(s.isMobile);
+
+    const availLabels = { disponivel: 'Disponível', parcial: 'Parcial', indisponivel: 'Indisponível' };
+    const availColors = { disponivel: '#1F9254', parcial: '#E8A400', indisponivel: '#C23B3B' };
+
+    const decorate = (eq) => ({
+      ...eq,
+      priceFrom: eq.hasDay ? this.fmtMoney(eq.priceDay) + ' / dia' : this.fmtMoney(eq.priceHour) + ' / hora',
+      stickyPriceLabel: eq.hasDay ? this.fmtMoney(eq.priceDay) + ' / dia' : this.fmtMoney(eq.priceHour) + ' / hora',
+      availLabel: availLabels[eq.availability],
+      availBadgeStyle: { ...styles.availBadgeBase, background: availColors[eq.availability] },
+      heartIcon: s.favorites[eq.id] ? '♥' : '♡',
+      heartStyle: { ...styles.heartBtn, color: s.favorites[eq.id] ? '#E4032E' : '#8A8F98' },
+      onToggleFav: (e) => { e.stopPropagation(); this.toggleFavorite(eq.id); },
+      onOpen: () => this.selectEquipment(eq.id),
+      billingOptions: [
+        eq.hasHour ? { key: 'hora', value: this.fmtMoney(eq.priceHour), label: '/ hora', style: { ...styles.priceModeBtn, ...(s.billingMode === 'hora' ? styles.priceModeBtnActive : {}) }, onSelect: () => this.setBillingMode('hora') } : null,
+        eq.hasDay ? { key: 'dia', value: this.fmtMoney(eq.priceDay), label: '/ dia', style: { ...styles.priceModeBtn, ...(s.billingMode === 'dia' ? styles.priceModeBtnActive : {}) }, onSelect: () => this.setBillingMode('dia') } : null
+      ].filter(Boolean)
+    });
+
+    const q = s.query.trim().toLowerCase();
+    let filtered = this.equipments.filter(eq => {
+      if (s.activeCategory && eq.category !== s.activeCategory) return false;
+      if (s.activeCity !== 'Todas' && eq.location !== s.activeCity) return false;
+      if (s.onlyAvailable && eq.availability === 'indisponivel') return false;
+      const cap = eq.hasDay ? eq.priceDay : eq.priceHour;
+      if (cap > s.maxPrice) return false;
+      if (q && !(eq.name.toLowerCase().includes(q) || eq.categoryLabel.toLowerCase().includes(q) || eq.brand.toLowerCase().includes(q))) return false;
+      return true;
+    });
+    if (s.sortBy === 'preco') filtered = [...filtered].sort((a, b) => (a.hasDay ? a.priceDay : a.priceHour) - (b.hasDay ? b.priceDay : b.priceHour));
+    if (s.sortBy === 'avaliacao') filtered = [...filtered].sort((a, b) => Number(b.rating) - Number(a.rating));
+    filtered = filtered.map(decorate);
+
+    const selectedRaw = this.equipments.find(e => e.id === s.selectedId);
+    const rentalDays = this.daysBetween(s.dateStart, s.dateEnd);
+    const pricing = selectedRaw ? this.computePricing(selectedRaw, s.billingMode, rentalDays) : this.computePricing(null);
+    const selected = selectedRaw ? {
+      ...decorate(selectedRaw),
+      billingOptions: decorate(selectedRaw).billingOptions
+    } : null;
+
+    const days = (this.days || []).map(d => {
+      const inRange = s.dateStart && s.dateEnd && d.iso >= s.dateStart && d.iso <= s.dateEnd;
+      const isEdge = d.iso === s.dateStart || d.iso === s.dateEnd;
+      const disabled = d.status === 'reservado' || d.status === 'bloqueado';
+      return {
+        ...d,
+        style: {
+          ...styles.dayCell,
+          background: isEdge ? '#14205A' : inRange ? '#E7EAF6' : '#fff',
+          color: isEdge ? '#fff' : disabled ? '#B7BAC2' : '#14203D',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          opacity: disabled ? 0.55 : 1
+        },
+        dotStyle: { ...styles.dayDot, background: d.status === 'disponivel' ? '#1F9254' : d.status === 'parcial' ? '#E8A400' : '#C23B3B' },
+        onPick: () => this.pickDate(d.iso, d.status)
+      };
+    });
+
+    const rangeLabel = s.dateStart && s.dateEnd ? this.fmtDate(s.dateStart) + ' → ' + this.fmtDate(s.dateEnd) + ' · ' + rentalDays + (rentalDays === 1 ? ' dia' : ' dias') : '';
+    const rangeTotalLabel = pricing.totalLabel;
+
+    const cities = ['Todas', 'Capanema - PR', 'Realeza - PR'].map(label => ({
+      label, chipStyle: { ...styles.cityChip, ...(s.activeCity === label ? styles.cityChipActive : {}) }, onSelect: () => this.selectCity(label)
+    }));
+
+    const categoryFilterOptions = this.categories.map(c => ({
+      name: c.name, style: { ...styles.filterChip, ...(s.activeCategory === c.key ? styles.filterChipActive : {}) }, onSelect: () => this.setState({ activeCategory: s.activeCategory === c.key ? null : c.key })
+    }));
+    const cityFilterOptions = ['Todas', 'Capanema - PR', 'Realeza - PR'].map(label => ({
+      label, style: { ...styles.filterChip, ...(s.activeCity === label ? styles.filterChipActive : {}) }, onSelect: () => this.selectCity(label)
+    }));
+    const billingFilterOptions = [
+      { label: 'Por hora', style: { ...styles.filterChip, ...(s.billingMode === 'hora' ? styles.filterChipActive : {}) }, onSelect: () => this.setBillingMode('hora') },
+      { label: 'Por dia', style: { ...styles.filterChip, ...(s.billingMode === 'dia' ? styles.filterChipActive : {}) }, onSelect: () => this.setBillingMode('dia') }
+    ];
+
+    const paymentMethods = [
+      { key: 'pix', icon: '◈', label: 'Pix', style: { ...styles.paymentBtn, ...(s.paymentMethod === 'pix' ? styles.paymentBtnActive : {}) }, onSelect: () => this.setPaymentMethod('pix') },
+      { key: 'cartao', icon: '▭', label: 'Cartão de crédito', style: { ...styles.paymentBtn, ...(s.paymentMethod === 'cartao' ? styles.paymentBtnActive : {}) }, onSelect: () => this.setPaymentMethod('cartao') },
+      { key: 'dinheiro', icon: '●', label: 'Dinheiro na entrega', style: { ...styles.paymentBtn, ...(s.paymentMethod === 'dinheiro' ? styles.paymentBtnActive : {}) }, onSelect: () => this.setPaymentMethod('dinheiro') }
+    ];
+
+    const categories = this.categories.map(c => ({
+      ...c, countLabel: c.count + ' equipamentos', onSelect: () => this.selectCategory(c.key)
+    }));
+
+    return {
+      styles,
+      isMobile: s.isMobile,
+      notMobile: !s.isMobile,
+      toast: s.toast,
+      screenLabel: 'LocaTudo',
+      isHome: s.screen === 'home',
+      isResults: s.screen === 'results',
+      isDetail: s.screen === 'detail',
+      isSummary: s.screen === 'summary',
+      showFilterSheetMobile: s.showFilterSheetMobile,
+      showFilterPanel: s.showFilterPanel,
+      query: s.query,
+      goHome: () => this.goHome(),
+      onQueryChange: (e) => this.onQueryChange(e),
+      onSearchKeyDown: (e) => this.onSearchKeyDown(e),
+      runSearch: () => this.runSearch(),
+      runSearchAll: () => this.runSearchAll(),
+      toggleFilters: () => this.toggleFilters(),
+      stopProp: (e) => this.stopProp(e),
+      scrollToCategories: () => this.scrollToCategories(),
+      notifyComingSoon: () => this.notifyComingSoon(),
+      cities,
+      categories,
+      featured: this.equipments.map(decorate),
+      filtered,
+      hasResults: filtered.length > 0,
+      noResults: filtered.length === 0,
+      resultsCountLabel: filtered.length + (filtered.length === 1 ? ' equipamento encontrado' : ' equipamentos encontrados'),
+      sortBy: s.sortBy,
+      onSortChange: (e) => this.onSortChange(e),
+      toggleFilterPanel: () => this.toggleFilterPanel(),
+      categoryFilterOptions,
+      cityFilterOptions,
+      billingFilterOptions,
+      onlyAvailable: s.onlyAvailable,
+      toggleOnlyAvailable: () => this.toggleOnlyAvailable(),
+      maxPrice: s.maxPrice,
+      maxPriceLabel: this.fmtMoney(s.maxPrice),
+      onMaxPriceChange: (e) => this.onMaxPriceChange(e),
+      clearFilters: () => this.clearFilters(),
+      backToResults: () => this.backToResults(),
+      selected,
+      hasRange: !!(s.dateStart && s.dateEnd),
+      noRange: !(s.dateStart && s.dateEnd),
+      rangeLabel,
+      rangeTotalLabel,
+      days,
+      rentBtnLabel: selected ? 'Alugar equipamento — ' + selected.stickyPriceLabel : 'Alugar equipamento',
+      goRent: () => this.goRent(),
+      pricing,
+      stepIsSummary: s.checkoutStep === 'summary',
+      stepIsDados: s.checkoutStep === 'dados',
+      stepIsPagamento: s.checkoutStep === 'pagamento',
+      stepIsConfirm: s.checkoutStep === 'confirm',
+      goCheckoutDados: () => this.goCheckoutDados(),
+      backToSummary: () => this.backToSummary(),
+      goCheckoutPagamento: () => this.goCheckoutPagamento(),
+      backToDados: () => this.backToDados(),
+      confirmOrder: () => this.confirmOrder(),
+      orderNumber: s.orderNumber,
+      form: s.form,
+      onFormChange_nome: (e) => this.updateForm('nome', e.target.value),
+      onFormChange_documento: (e) => this.updateForm('documento', e.target.value),
+      onFormChange_telefone: (e) => this.updateForm('telefone', e.target.value),
+      onFormChange_email: (e) => this.updateForm('email', e.target.value),
+      onFormChange_cep: (e) => this.updateForm('cep', e.target.value),
+      onFormChange_cidade: (e) => this.updateForm('cidade', e.target.value),
+      onFormChange_endereco: (e) => this.updateForm('endereco', e.target.value),
+      onFormChange_numero: (e) => this.updateForm('numero', e.target.value),
+      paymentMethods,
+      bottomNavHomeStyle: { ...styles.bottomNavItem, color: s.screen === 'home' ? '#14205A' : '#9AA0AC' },
+      bottomNavSearchStyle: { ...styles.bottomNavItem, color: s.screen === 'results' ? '#14205A' : '#9AA0AC' }
+    };
+  }
+
+  fmtDate(iso) { const [y, m, d] = iso.split('-'); return d + '/' + m; }
+
+  buildStyles(isMobile) {
+    const navy = '#14205A', navy2 = '#1D2B63', yellow = '#FFCB05', red = '#E4032E', textDark = '#14203D', textGray = '#6B7280', bg = '#F5F5F1', white = '#FFFFFF';
+    const heading = { fontFamily: "'Poppins', sans-serif" };
+    const body = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
+    const sectionPadH = isMobile ? '20px' : '64px';
+    const sectionPadV = isMobile ? '32px' : '56px';
+
+    return {
+      root: { ...body, minHeight: '100vh', background: bg, color: textDark, paddingBottom: isMobile ? '76px' : 0, animation: 'ltFadeUp 0.3s ease' },
+      toast: { position: 'fixed', bottom: isMobile ? '84px' : '24px', left: '50%', transform: 'translateX(-50%)', background: navy, color: white, padding: '12px 20px', borderRadius: '999px', fontSize: '14px', fontWeight: 600, zIndex: 999, boxShadow: '0 8px 24px rgba(0,0,0,0.25)', whiteSpace: 'nowrap' },
+
+      logoWrap: { display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', flexShrink: 0 },
+      logoBadge: { background: yellow, border: '2px solid ' + navy, borderRadius: '10px', padding: '3px 10px', display: 'flex', gap: '4px', lineHeight: 1 },
+      logoLoca: { ...heading, fontWeight: 900, fontSize: isMobile ? '14px' : '16px', color: navy, fontStyle: 'italic' },
+      logoTudo: { ...heading, fontWeight: 900, fontSize: isMobile ? '14px' : '16px', color: navy, fontStyle: 'italic' },
+      logoSub: { ...heading, fontWeight: 800, fontSize: '7px', letterSpacing: '0.06em', color: navy, marginTop: '2px' },
+
+      headerMobile: { position: 'sticky', top: 0, zIndex: 40, background: white, borderBottom: '1px solid #ECECE8' },
+      headerMobileRow: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px 6px' },
+      headerIconsRow: { display: 'flex', gap: '6px' },
+      iconBtn: { width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: '#F2F2EE', fontSize: '17px', cursor: 'pointer' },
+      headerMobileSearchRow: { padding: '0 16px 12px' },
+      searchInputMobile: { width: '100%', padding: '13px 16px', borderRadius: '12px', border: '1px solid #E1E1DC', fontSize: '15px', ...body, background: '#F7F7F4', outline: 'none' },
+
+      headerDesktop: { position: 'sticky', top: 0, zIndex: 40, background: white, borderBottom: '1px solid #ECECE8', display: 'flex', alignItems: 'center', gap: '32px', padding: '14px 64px' },
+      searchWrapDesktop: { flex: 1, display: 'flex', alignItems: 'center', background: '#F2F2EE', borderRadius: '14px', padding: '4px 4px 4px 16px', maxWidth: '620px' },
+      searchIconDesktop: { fontSize: '15px', color: textGray, marginRight: '10px' },
+      searchInputDesktop: { flex: 1, border: 'none', background: 'transparent', padding: '10px 0', fontSize: '15px', outline: 'none', ...body },
+      searchBtnDesktop: { background: navy, color: white, border: 'none', borderRadius: '11px', padding: '11px 22px', fontWeight: 700, fontSize: '14px', cursor: 'pointer', ...heading },
+      navDesktop: { display: 'flex', alignItems: 'center', gap: '28px', marginLeft: 'auto' },
+      navLink: { fontSize: '14.5px', fontWeight: 600, color: textDark, cursor: 'pointer', ...body },
+      accountBtn: { border: '1.5px solid ' + navy, background: 'transparent', color: navy, borderRadius: '10px', padding: '9px 20px', fontWeight: 700, fontSize: '14px', cursor: 'pointer', ...heading },
+
+      searchSheetOverlay: { position: 'fixed', inset: 0, background: 'rgba(20,32,90,0.4)', zIndex: 60, display: 'flex', alignItems: 'flex-end' },
+      searchSheet: { background: white, width: '100%', borderRadius: '20px 20px 0 0', padding: '24px 20px 32px', animation: 'ltFadeUp 0.25s ease' },
+      searchSheetTitle: { ...heading, fontWeight: 800, fontSize: '18px', marginBottom: '14px' },
+      primaryBtnFull: { width: '100%', background: yellow, color: navy, border: 'none', borderRadius: '13px', padding: '15px', fontWeight: 800, fontSize: '15px', cursor: 'pointer', marginTop: '14px', ...heading },
+
+      homeMain: { maxWidth: '1240px', margin: '0 auto' },
+      hero: { padding: sectionPadV + ' ' + sectionPadH + ' ' + (isMobile ? '28px' : '40px'), background: navy, backgroundImage: 'linear-gradient(160deg,' + navy + ' 0%,' + navy2 + ' 100%)', color: white, borderRadius: isMobile ? '0 0 28px 28px' : '0 0 40px 40px' },
+      heroTag: { display: 'inline-block', background: red, color: white, fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', padding: '5px 12px', borderRadius: '999px', marginBottom: '18px', ...heading },
+      heroTitle: { ...heading, fontWeight: 800, fontSize: isMobile ? '30px' : '48px', lineHeight: 1.08, margin: '0 0 14px', maxWidth: '640px' },
+      heroSubtitle: { ...body, fontSize: isMobile ? '15px' : '18px', color: '#C9D0E8', margin: '0 0 28px', maxWidth: '520px', fontWeight: 500 },
+      heroSearchCard: { background: white, borderRadius: '18px', padding: isMobile ? '18px' : '22px 24px', boxShadow: '0 20px 40px rgba(0,0,0,0.18)' },
+      heroSearchLabel: { color: textDark, fontWeight: 700, fontSize: isMobile ? '14px' : '15px', marginBottom: '12px', ...heading },
+      heroSearchRow: { display: 'flex', gap: '10px', flexWrap: 'wrap' },
+      heroSearchInput: { flex: '1 1 220px', border: '1.5px solid #E1E1DC', borderRadius: '12px', padding: '14px 16px', fontSize: '15px', outline: 'none', ...body },
+      primaryBtn: { background: yellow, color: navy, border: 'none', borderRadius: '12px', padding: '14px 24px', fontWeight: 800, fontSize: '15px', cursor: 'pointer', whiteSpace: 'nowrap', ...heading },
+      heroLocationRow: { marginTop: '26px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: '14px' },
+      heroLocationLabel: { fontWeight: 700, fontSize: '14.5px', color: white, ...heading },
+      cityChips: { display: 'flex', gap: '8px', flexWrap: 'wrap' },
+      cityChip: { background: 'rgba(255,255,255,0.12)', color: white, border: '1px solid rgba(255,255,255,0.35)', borderRadius: '999px', padding: '8px 16px', fontSize: '13.5px', fontWeight: 600, cursor: 'pointer', ...body },
+      cityChipActive: { background: yellow, color: navy, border: '1px solid ' + yellow, fontWeight: 800 },
+
+      sectionHeadRow: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: (isMobile ? '0 20px 16px' : '0 64px 20px') },
+      sectionTitle: { ...heading, fontWeight: 800, fontSize: isMobile ? '20px' : '26px', margin: 0 },
+      seeAllLink: { fontSize: '14px', fontWeight: 700, color: navy, cursor: 'pointer', ...body },
+
+      categoriesSection: { padding: (isMobile ? '32px 0 8px' : '48px 0 16px') },
+      categoriesGrid: { display: 'grid', gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(96px, 1fr))' : 'repeat(auto-fill, minmax(180px, 1fr))', gap: isMobile ? '10px' : '16px', padding: (isMobile ? '0 20px' : '0 64px') },
+      categoryCard: { background: white, border: '1px solid #EAEAE4', borderRadius: '16px', padding: isMobile ? '14px 8px' : '22px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer', textAlign: 'center' },
+      categoryMono: { width: isMobile ? '40px' : '48px', height: isMobile ? '40px' : '48px', borderRadius: '50%', background: yellow, color: navy, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: isMobile ? '13px' : '15px', ...heading },
+      categoryName: { fontWeight: 700, fontSize: isMobile ? '12.5px' : '14.5px', lineHeight: 1.25, ...body },
+      categoryCount: { fontSize: isMobile ? '11px' : '12.5px', color: textGray, ...body },
+
+      featuredSection: { padding: (isMobile ? '28px 0' : '48px 0') },
+      equipGrid: { display: 'grid', gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(150px,1fr))' : 'repeat(auto-fill, minmax(240px,1fr))', gap: isMobile ? '14px' : '22px', padding: (isMobile ? '0 20px' : '0 64px') },
+      equipGridResults: { display: 'grid', gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(150px,1fr))' : 'repeat(auto-fill, minmax(230px,1fr))', gap: isMobile ? '14px' : '20px' },
+
+      equipCard: { background: white, borderRadius: '18px', overflow: 'hidden', border: '1px solid #EFEFEA', cursor: 'pointer', display: 'flex', flexDirection: 'column', transition: 'transform .15s, box-shadow .15s' },
+      equipImgWrap: { position: 'relative', width: '100%', aspectRatio: '4/3' },
+      heartBtn: { position: 'absolute', top: '10px', right: '10px', width: '34px', height: '34px', borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.92)', fontSize: '17px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+      availBadgeBase: { position: 'absolute', top: '10px', left: '10px', color: white, fontSize: '11px', fontWeight: 800, padding: '4px 10px', borderRadius: '999px', ...heading },
+      equipBody: { padding: isMobile ? '12px 12px 14px' : '16px 16px 18px', display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 },
+      equipNameWrap: { minHeight: isMobile ? '36px' : '42px' },
+      equipName: { fontWeight: 800, fontSize: isMobile ? '14px' : '16px', ...heading, lineHeight: 1.25, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' },
+      equipCategory: { fontSize: '12px', color: textGray, ...body },
+      equipSpacer: { flex: 1 },
+      equipMetaRow: { display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '12px' : '13px', color: textDark, marginTop: '2px', gap: '8px', flexWrap: 'wrap' },
+      equipRating: { fontWeight: 700, color: '#B8860B' },
+      equipLocation: { color: textGray },
+      equipPriceRow: { marginTop: '4px' },
+      logoImg: { height: isMobile ? '40px' : '48px', width: 'auto', display: 'block' },
+      equipPriceFrom: { display: 'block', fontSize: '11px', color: textGray },
+      equipPriceValue: { display: 'block', fontWeight: 800, fontSize: isMobile ? '16px' : '19px', color: navy, ...heading },
+      equipCta: { marginTop: '10px', background: navy, color: white, border: 'none', borderRadius: '10px', padding: '11px', fontWeight: 700, fontSize: '13.5px', cursor: 'pointer', ...heading },
+
+      trustSection: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: '16px', padding: (isMobile ? '8px 20px 40px' : '16px 64px 64px') },
+      trustItem: { background: white, borderRadius: '16px', padding: '20px', border: '1px solid #EFEFEA' },
+      trustNum: { ...heading, fontWeight: 800, fontSize: '18px', color: navy, marginBottom: '4px' },
+      trustLabel: { fontSize: '13px', color: textGray, ...body },
+
+      resultsMain: { maxWidth: '1240px', margin: '0 auto', padding: (isMobile ? '16px 16px 40px' : '20px 64px 64px') },
+      breadcrumbRow: { display: 'flex', gap: '6px', fontSize: '13px', color: textGray, marginBottom: '16px', ...body },
+      breadcrumbLink: { color: navy, fontWeight: 600, cursor: 'pointer' },
+      breadcrumbSep: {}, breadcrumbCurrent: { color: textDark },
+
+      mobileFilterBarRow: { display: 'flex', gap: '10px', marginBottom: '14px' },
+      filterToggleBtn: { flex: 1, border: '1.5px solid #E1E1DC', background: white, borderRadius: '11px', padding: '11px', fontWeight: 700, fontSize: '13.5px', cursor: 'pointer', ...heading },
+      sortSelect: { border: '1.5px solid #E1E1DC', background: white, borderRadius: '11px', padding: '11px 12px', fontWeight: 600, fontSize: '13px', ...body, flex: isMobile ? 1 : 'none' },
+
+      resultsLayout: { display: 'flex', gap: '28px', alignItems: 'flex-start' },
+      filtersPanel: { width: isMobile ? '100%' : '250px', flexShrink: 0, background: white, borderRadius: '16px', padding: '18px', border: '1px solid #EFEFEA', position: isMobile ? 'relative' : 'sticky', top: '90px', marginBottom: isMobile ? '18px' : 0 },
+      filtersTitleRow: { display: 'flex', justifyContent: 'space-between', marginBottom: '14px' },
+      filtersTitle: { fontWeight: 800, fontSize: '15px', ...heading },
+      filtersClear: { fontSize: '12.5px', color: navy, fontWeight: 700, cursor: 'pointer' },
+      filterGroup: { marginBottom: '18px' },
+      filterGroupLabel: { fontWeight: 700, fontSize: '12.5px', color: textGray, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.03em' },
+      filterChip: { display: 'block', width: '100%', textAlign: 'left', background: '#F5F5F1', border: '1px solid transparent', borderRadius: '9px', padding: '9px 12px', fontSize: '13px', marginBottom: '6px', cursor: 'pointer', fontWeight: 600, color: textDark, ...body },
+      filterChipActive: { background: navy, color: white },
+      checkRow: { display: 'flex', gap: '8px', alignItems: 'center', fontSize: '13px', fontWeight: 600, ...body },
+      rangeInput: { width: '100%' },
+
+      resultsContent: { flex: 1, minWidth: 0 },
+      resultsTopRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' },
+      resultsCount: { fontWeight: 700, fontSize: '15px', ...heading },
+      resultsCountMobile: { fontWeight: 700, fontSize: '13.5px', marginBottom: '12px', color: textGray },
+
+      emptyState: { textAlign: 'center', padding: '60px 20px', background: white, borderRadius: '16px', border: '1px solid #EFEFEA' },
+      emptyTitle: { fontWeight: 800, fontSize: '17px', marginBottom: '8px', ...heading },
+      emptySubtitle: { fontSize: '13px', color: textGray, marginBottom: '6px' },
+      emptyList: { fontSize: '13.5px', color: textDark, display: 'inline-block', textAlign: 'left', margin: '0 0 20px' },
+
+      detailMain: { maxWidth: '1200px', margin: '0 auto', padding: (isMobile ? '16px 16px 100px' : '20px 64px 64px') },
+      detailLayout: { display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '20px' : '48px' },
+      detailGallery: { flex: isMobile ? 'none' : '1 1 50%', minWidth: 0 },
+      detailMainImgWrap: { width: '100%', aspectRatio: '4/3', marginBottom: '10px' },
+      detailThumbRow: { display: 'flex', gap: '10px' },
+      detailThumb: { width: '90px', height: '68px' },
+      detailInfo: { flex: isMobile ? 'none' : '1 1 50%', minWidth: 0 },
+      detailTitle: { ...heading, fontWeight: 800, fontSize: isMobile ? '24px' : '30px', margin: '10px 0 8px' },
+      detailMetaRow: { display: 'flex', gap: '16px', fontSize: '14px', marginBottom: '8px', flexWrap: 'wrap' },
+      detailBrandRow: { fontSize: '13.5px', color: textGray, marginBottom: '20px' },
+      priceModeRow: { display: 'flex', gap: '10px', marginBottom: '20px' },
+      priceModeBtn: { border: '1.5px solid #E1E1DC', background: white, borderRadius: '12px', padding: '12px 18px', cursor: 'pointer', textAlign: 'left' },
+      priceModeBtnActive: { border: '1.5px solid ' + navy, background: '#EEF0F8' },
+      priceModeValue: { ...heading, fontWeight: 800, fontSize: '17px', color: navy },
+      priceModeLabel: { fontSize: '12px', color: textGray, ...body },
+      detailDesc: { fontSize: '14.5px', lineHeight: 1.65, color: textDark, marginBottom: '22px', ...body },
+      specsBlock: { marginBottom: '20px' }, rulesBlock: { marginBottom: '24px' },
+      specsTitle: { fontWeight: 800, fontSize: '15px', marginBottom: '10px', ...heading },
+      specsList: { margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' },
+      specItem: { fontSize: '13.5px', color: textDark, ...body },
+      availBlock: { background: white, border: '1px solid #EFEFEA', borderRadius: '16px', padding: isMobile ? '16px' : '20px', marginBottom: '24px' },
+      availLegendRow: { display: 'flex', gap: '16px', fontSize: '12.5px', color: textGray, marginBottom: '14px', flexWrap: 'wrap' },
+      legendItem: { display: 'flex', alignItems: 'center', gap: '5px' },
+      dotGreen: { width: '8px', height: '8px', borderRadius: '50%', background: '#1F9254', display: 'inline-block' },
+      dotAmber: { width: '8px', height: '8px', borderRadius: '50%', background: '#E8A400', display: 'inline-block' },
+      dotRed: { width: '8px', height: '8px', borderRadius: '50%', background: '#C23B3B', display: 'inline-block' },
+      dayStrip: { display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' },
+      dayCell: { flexShrink: 0, width: '52px', border: '1px solid #E1E1DC', borderRadius: '12px', padding: '8px 4px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', ...body },
+      dayLabelWeek: { fontSize: '10px', textTransform: 'uppercase', opacity: 0.7 },
+      dayLabelNum: { fontWeight: 700, fontSize: '13px' },
+      dayDot: { width: '6px', height: '6px', borderRadius: '50%' },
+      rangeSummary: { display: 'flex', justifyContent: 'space-between', marginTop: '14px', fontWeight: 700, fontSize: '14px', ...heading },
+      rangeSummaryPrice: { color: navy },
+      rangeHint: { fontSize: '12.5px', color: textGray, marginTop: '12px' },
+      desktopRentBtn: { display: isMobile ? 'none' : 'block', width: '100%', background: yellow, color: navy, border: 'none', borderRadius: '13px', padding: '16px', fontWeight: 800, fontSize: '16px', cursor: 'pointer', ...heading },
+
+      stickyRentBar: { display: isMobile ? 'flex' : 'none', position: 'fixed', bottom: 0, left: 0, right: 0, background: white, borderTop: '1px solid #EAEAE4', padding: '12px 16px', alignItems: 'center', gap: '12px', zIndex: 50 },
+      stickyRentInfo: { flex: 1, minWidth: 0 },
+      stickyRentName: { fontWeight: 700, fontSize: '13px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
+      stickyRentPrice: { fontWeight: 800, fontSize: '15px', color: navy },
+      stickyRentBtn: { background: yellow, color: navy, border: 'none', borderRadius: '11px', padding: '13px 22px', fontWeight: 800, fontSize: '14px', cursor: 'pointer', whiteSpace: 'nowrap', ...heading },
+
+      summaryMain: { maxWidth: '560px', margin: '0 auto', padding: (isMobile ? '24px 16px 60px' : '48px 20px 80px') },
+      summaryCard: { background: white, borderRadius: '20px', padding: isMobile ? '20px' : '32px', border: '1px solid #EFEFEA' },
+      summaryTitle: { ...heading, fontWeight: 800, fontSize: '20px', marginBottom: '18px' },
+      summaryEquipRow: { display: 'flex', gap: '14px', alignItems: 'center' },
+      summaryEquipImgWrap: { width: '64px', height: '64px', flexShrink: 0 },
+      summaryEquipName: { fontWeight: 700, fontSize: '15px', marginBottom: '4px' },
+      summaryDivider: { height: '1px', background: '#EFEFEA', margin: '18px 0' },
+      summaryPeriodRow: { display: 'flex', justifyContent: 'space-between', fontSize: '14px' },
+      summaryLineRow: { display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: textDark, padding: '4px 0' },
+      summaryTotalRow: { display: 'flex', justifyContent: 'space-between', fontWeight: 800, fontSize: '18px', marginTop: '10px', color: navy, ...heading },
+
+      checkoutStepLabel: { fontSize: '12px', fontWeight: 700, color: textGray, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' },
+      formGrid: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px', marginBottom: '10px' },
+      formLabel: { display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12.5px', fontWeight: 700, color: textGray },
+      formLabelWide: { display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12.5px', fontWeight: 700, color: textGray, gridColumn: isMobile ? 'auto' : '1 / -1' },
+      formInput: { border: '1.5px solid #E1E1DC', borderRadius: '10px', padding: '11px 12px', fontSize: '14px', fontWeight: 500, color: textDark, outline: 'none', ...body },
+      checkoutBtnRow: { display: 'flex', gap: '12px', marginTop: '18px' },
+      secondaryBtn: { flex: 1, border: '1.5px solid #E1E1DC', background: white, color: textDark, borderRadius: '12px', padding: '13px', fontWeight: 700, fontSize: '14.5px', cursor: 'pointer', ...heading },
+
+      paymentOptions: { display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '6px' },
+      paymentBtn: { display: 'flex', gap: '10px', alignItems: 'center', border: '1.5px solid #E1E1DC', background: white, borderRadius: '12px', padding: '14px', fontWeight: 600, fontSize: '14px', cursor: 'pointer', textAlign: 'left', ...body },
+      paymentBtnActive: { border: '1.5px solid ' + navy, background: '#EEF0F8' },
+      paymentIcon: { fontSize: '16px' },
+
+      confirmCard: { background: white, borderRadius: '20px', padding: isMobile ? '28px 20px' : '40px', border: '1px solid #EFEFEA', textAlign: 'center' },
+      confirmIcon: { width: '56px', height: '56px', borderRadius: '50%', background: '#1F9254', color: white, fontSize: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' },
+      confirmTitle: { ...heading, fontWeight: 800, fontSize: '19px', marginBottom: '6px' },
+      confirmOrderNum: { fontSize: '13.5px', color: textGray, marginBottom: '4px' },
+      statusPending: { color: '#B8860B', fontWeight: 700 },
+
+      bottomNav: { position: 'fixed', bottom: 0, left: 0, right: 0, background: white, borderTop: '1px solid #EAEAE4', display: 'flex', justifyContent: 'space-around', padding: '8px 0 10px', zIndex: 45 },
+      bottomNavItem: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', border: 'none', background: 'none', fontSize: '18px', color: '#9AA0AC', cursor: 'pointer' },
+      bottomNavLabel: { fontSize: '10.5px', fontWeight: 700, ...heading }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
