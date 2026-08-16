@@ -1,0 +1,287 @@
+{
+  "communities": {
+    "0": [
+      "image_slot",
+      "image_slot_flushnow",
+      "image_slot_getslot",
+      "image_slot_imageslot",
+      "image_slot_imageslot_applyview",
+      "image_slot_imageslot_attributechangedcallback",
+      "image_slot_imageslot_clampview",
+      "image_slot_imageslot_cloneslot",
+      "image_slot_imageslot_commitview",
+      "image_slot_imageslot_connectedcallback",
+      "image_slot_imageslot_constructor",
+      "image_slot_imageslot_disconnectedcallback",
+      "image_slot_imageslot_enterreframe",
+      "image_slot_imageslot_esc",
+      "image_slot_imageslot_exitreframe",
+      "image_slot_imageslot_geom",
+      "image_slot_imageslot_handleevent",
+      "image_slot_imageslot_ingest",
+      "image_slot_imageslot_observedattributes",
+      "image_slot_imageslot_openfilepicker",
+      "image_slot_imageslot_outside",
+      "image_slot_imageslot_pagehide",
+      "image_slot_imageslot_reframes",
+      "image_slot_imageslot_releasemask",
+      "image_slot_imageslot_render",
+      "image_slot_imageslot_reposition",
+      "image_slot_imageslot_seterror",
+      "image_slot_imageslot_signalreframe",
+      "image_slot_imageslot_subfn",
+      "image_slot_imageslot_watch",
+      "image_slot_load",
+      "image_slot_save",
+      "image_slot_setslot",
+      "image_slot_todataurl"
+    ],
+    "1": [
+      "support_boot",
+      "support_boot_standaloneroot",
+      "support_bundledblob",
+      "support_createcomponentfactory",
+      "support_createcomponentfactory_getdc",
+      "support_createcomponentfactory_getdc_dispatcher",
+      "support_createexternalmodules_geterror",
+      "support_createhelmetmanager",
+      "support_createhelmetmanager_applycanvasbg",
+      "support_createhelmetmanager_compile",
+      "support_createhelmetmanager_postdesignmode",
+      "support_createhelmetmanager_setdesigndocmode",
+      "support_createpseudosheet",
+      "support_createregistry",
+      "support_createregistry_bump",
+      "support_createregistry_get",
+      "support_createruntime",
+      "support_createruntime_adoptparsed",
+      "support_createruntime_dcupdate",
+      "support_createruntime_ensurefetched",
+      "support_createruntime_setprops",
+      "support_createruntime_setstreaming",
+      "support_createruntime_updatehtml",
+      "support_createruntime_updatejs",
+      "support_createstreamtracker",
+      "support_init",
+      "support_parsedataprops",
+      "support_parsedcdocument",
+      "support_parsedctext"
+    ],
+    "2": [
+      "assets_logo_locatudo_png",
+      "github_md",
+      "locatudo_brand",
+      "locatudo_component_imageslot",
+      "locatudo_contact_capanema",
+      "locatudo_contact_realeza",
+      "locatudo_dc_html",
+      "locatudo_fonts_googleapis",
+      "locatudo_imageslot_js",
+      "locatudo_marketplace_concept",
+      "locatudo_screen_detail",
+      "locatudo_screen_home",
+      "locatudo_screen_results",
+      "locatudo_service_area",
+      "locatudo_support_js",
+      "uploads_wimg_andaimes",
+      "uploads_wimg_instagram_profile",
+      "uploads_wimg_logo_splash",
+      "uploads_wimg_mais_obra",
+      "uploads_wimg_pistola_eletrica"
+    ],
+    "3": [
+      "support",
+      "support_compiletemplate",
+      "support_componentdidmount",
+      "support_componentdidupdate",
+      "support_componentwillunmount",
+      "support_constructor",
+      "support_dcnamefrompath",
+      "support_encodecamelattrs",
+      "support_encodecase",
+      "support_forceupdate",
+      "support_getreactdom",
+      "support_hiderawtemplate",
+      "support_hinttomin",
+      "support_placeholder",
+      "support_rendervals",
+      "support_rootnamefordocument",
+      "support_safedecode",
+      "support_setstate",
+      "support_shallowequal"
+    ],
+    "4": [
+      "support_collectprops",
+      "support_contentkey",
+      "support_csstoobj",
+      "support_hostpositionstyle",
+      "support_isdeckmounttag",
+      "support_kebabtocamel",
+      "support_renderdeckkids",
+      "support_walk",
+      "support_walkchildren",
+      "support_walkcomponent",
+      "support_walkdeckchildren",
+      "support_walkelement",
+      "support_walkximport"
+    ],
+    "5": [
+      "support_cdnscriptfor",
+      "support_createexternalmodules",
+      "support_createexternalmodules_ensurebabel",
+      "support_createexternalmodules_load",
+      "support_createexternalmodules_resolve2",
+      "support_createexternalmodules_resolveglobal",
+      "support_createexternalmodules_waitforglobal",
+      "support_iselementclass",
+      "support_isrenderabletype",
+      "support_loadreactumd",
+      "support_loadscript",
+      "support_resolvedottedpath"
+    ],
+    "6": [
+      "support_compileattr",
+      "support_evaldclogic",
+      "support_getreact",
+      "support_walkfor",
+      "support_walkif",
+      "support_walktext",
+      "support_warnunresolved"
+    ],
+    "7": [
+      "support_findtoplevelequality",
+      "support_parenswrapwhole",
+      "support_resolve",
+      "support_resolvepath"
+    ],
+    "8": [
+      "support_importantify",
+      "support_scanunquotedurl",
+      "support_stripcomments"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1319073083778966,
+    "1": 0.17980295566502463,
+    "2": 0.1368421052631579,
+    "3": 0.1286549707602339,
+    "4": 0.3076923076923077,
+    "5": 0.24242424242424243,
+    "6": 0.38095238095238093,
+    "7": 0.5,
+    "8": 1.0
+  },
+  "gods": [
+    {
+      "id": "image_slot_imageslot",
+      "label": "ImageSlot",
+      "degree": 27
+    },
+    {
+      "id": "support_createregistry_get",
+      "label": "get()",
+      "degree": 23
+    },
+    {
+      "id": "support_createruntime",
+      "label": "createRuntime()",
+      "degree": 22
+    },
+    {
+      "id": "support_boot",
+      "label": "boot()",
+      "degree": 12
+    },
+    {
+      "id": "locatudo_dc_html",
+      "label": "LocaTudo DC HTML Prototype",
+      "degree": 10
+    },
+    {
+      "id": "support_getreact",
+      "label": "getReact()",
+      "degree": 9
+    },
+    {
+      "id": "support_walk",
+      "label": "walk()",
+      "degree": 9
+    },
+    {
+      "id": "support_walkximport",
+      "label": "walkXImport()",
+      "degree": 9
+    },
+    {
+      "id": "support_walkelement",
+      "label": "walkElement()",
+      "degree": 9
+    },
+    {
+      "id": "support_createruntime_updatehtml",
+      "label": "updateHtml()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "LocaTudo DC HTML Prototype",
+      "target": "LocaTudo Constru&CIA Logo",
+      "source_files": [
+        "LocaTudo.dc.html",
+        "assets/logo-locatudo.png"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 image); connects across different repos/directories; peripheral node `LocaTudo Constru&CIA Logo` unexpectedly reaches hub `LocaTudo DC HTML Prototype`"
+    },
+    {
+      "source": "LocaTudo Equipment Rental Marketplace",
+      "target": "LocaTudo Constru&CIA Brand",
+      "source_files": [
+        "LocaTudo.dc.html",
+        "assets/logo-locatudo.png"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image \u2194 doc); connects across different repos/directories"
+    },
+    {
+      "source": "GitHub Sync Notes",
+      "target": "Instagram Post \u2013 Pistola El\u00e9trica (Electric Spray Gun Rental)",
+      "source_files": [
+        "github.md",
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.09 (1).jpeg"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 image); connects across different repos/directories"
+    },
+    {
+      "source": "LocaTudo Equipment Rental Marketplace",
+      "target": "Service Area: Sudoeste do Paran\u00e1 (Capanema & Realeza)",
+      "source_files": [
+        "LocaTudo.dc.html",
+        "uploads/WhatsApp Image 2026-08-16 at 10.35.10 (1).jpeg"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 image); connects across different repos/directories"
+    },
+    {
+      "source": "GitHub Sync Notes",
+      "target": "LocaTudo DC HTML Prototype",
+      "source_files": [
+        "github.md",
+        "LocaTudo.dc.html"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `GitHub Sync Notes` unexpectedly reaches hub `LocaTudo DC HTML Prototype`"
+    }
+  ],
+  "tokens": {
+    "input": 14838,
+    "output": 4021
+  }
+}
